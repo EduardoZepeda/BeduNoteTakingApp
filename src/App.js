@@ -1,15 +1,16 @@
-import React, {
-  Fragment,
-  Component
-} from 'react';
+import React, { Fragment, Component } from 'react';
 //material-ui
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-//
+// Notes component
 import NotesForm from './NotesForm'
 import NotesList from './NotesList'
+import Home from './Home'
+import Note from './Note'
+//React Router
+import { Link, Route } from 'react-router-dom'
 
 class App extends Component {
   constructor(props) {
@@ -53,12 +54,22 @@ class App extends Component {
               <NotesList notes={this.state.notes}/>
             < /Grid>
             < Grid item xs={ 8 }>
-                < NotesForm saveNote={ this.saveNote } updateValue={ this.updateValue } title={ this.state.title } description={ this.state.description } />
+              <Route exact path='/' component={ Home }/>
+              <Route exact path='/add' render= { () => (
+                <NotesForm
+                  saveNote={ this.saveNote }
+                  updateValue={ this.updateValue }
+                  title={ this.state.title }
+                  description={ this.state.description } />)}
+              />
+              <Route path='/view/:id' render={props=> <Note {...props} notes={this.state.notes}/>}/>
             < / Grid>
         < /Grid>
-        < Fab color="primary" className='addIcon'>
-            <AddIcon />
-        </Fab>
+        <Link to='/add'>
+          < Fab color="primary" className='addIcon'>
+              <AddIcon />
+          </Fab>
+        </Link>
       < /Fragment>
     )
   }

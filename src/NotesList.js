@@ -7,12 +7,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Link } from 'react-router-dom'
 
 const NotesList = (props) => {
-  const listItems = props.notes.map((element, index)=>{
+  const listItems = props.notes.map((note, index)=>{
+    //En lugar de usar Link, usamos component y Links como atributos, lo anterior para preservar el estilo
+    //Esta funcion es exclusiva de Material-ui
     return(
-      <ListItem button key={index}>
-        <ListItemText primary = {element.title} secondary={moment(element.id).format('MMM Do YY')}/>
+      <ListItem button key={index} to={`/view/${note.id}`} component={ Link }>
+        <ListItemText primary = {note.title} secondary={moment(note.id).format('MMM Do YY')}/>
         <ListItemSecondaryAction>
           <IconButton>
             <DeleteIcon/>
