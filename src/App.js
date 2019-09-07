@@ -1,4 +1,7 @@
-import React, { Fragment, Component} from 'react';
+import React, {
+  Fragment,
+  Component
+} from 'react';
 //material-ui
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import NotesForm from './NotesForm'
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       title: '',
@@ -18,27 +21,42 @@ class App extends Component {
   }
 
   updateValue = event => {
-    this.setState({[event.target.name]: event.target.value})
-    console.log(this.state)
+    this.setState({
+      [event.target.name]: event.target.value
+    })
   }
 
-  render(){
+  saveNote = () => {
+    if (this.state.title && this.state.description) {
+      this.setState({
+        title: '',
+        description: '',
+        notes: [...this.state.notes, {
+          title: this.state.title,
+          description: this.state.description
+        }]
+      })
+    }
+  }
+
+  render() {
+    console.log(this.state)
     return (
-       <Fragment>
-        <Typography align="center" variant="h2" gutterBottom>
+      < Fragment>
+        < Typography align="center" variant="h2" gutterBottom>
           Hello World
-        </Typography>
-        <Grid container justify='center' spacing={2}>
-          <Grid item xs={4}>
-          </Grid>
-          <Grid item xs={8}>
-            <NotesForm updateValue={this.updateValue} title = {this.state.title} description= {this.state.description}/>
-          </Grid>
-        </Grid>
-        <Fab color="primary" className='addIcon'>
-          <AddIcon />
+        < /Typography>
+        < Grid container justify='center' spacing={ 2 }>
+            < Grid item xs={ 4 }>
+            < /Grid>
+            < Grid item xs={ 8 }>
+                < NotesForm saveNote={ this.saveNote } updateValue={ this.updateValue } title={ this.state.title } description={ this.state.description } />
+            < / Grid>
+        < /Grid>
+        < Fab color="primary" className='addIcon'>
+            <AddIcon />
         </Fab>
-       </Fragment>
+      < /Fragment>
     )
   }
 }
