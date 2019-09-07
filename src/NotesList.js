@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -10,8 +11,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const NotesList = (props) => {
   const listItems = props.notes.map((element, index)=>{
     return(
-      <ListItem onClick = {()=> props.toggleCompleted(index)} button key={index}>
-        <ListItemText primary = {element.title}/>
+      <ListItem button key={index}>
+        <ListItemText primary = {element.title} secondary={moment(element.id).format('MMM Do YY')}/>
         <ListItemSecondaryAction>
           <IconButton>
             <DeleteIcon/>
