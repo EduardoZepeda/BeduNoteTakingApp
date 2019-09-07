@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.editIcon {
+  position: absolute !important;
+  right: 2rem;
+  margin-top: 1rem !important;
+
+}
+
+.addIcon {
+  margin-top: 1rem !important;
+}
