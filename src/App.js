@@ -10,7 +10,7 @@ import NotesList from './NotesList'
 import Home from './Home'
 import Note from './Note'
 //React Router
-import {Link, Route} from 'react-router-dom'
+import {Link, Route, Redirect} from 'react-router-dom'
 
 class App extends Component {
   constructor(props) {
@@ -69,7 +69,14 @@ class App extends Component {
               <Route exact path='/' component={ Home }/>
  < Route exact path = '/add' render = {
       () => (<NotesForm saveNote={this.saveNote} updateValue={this.updateValue} title={this.state.title} description={this.state.description}/>)
-    } /> <Route path='/view/:id' render={props => <Note {...props} notes={this.state.notes}/>}/> < / Grid>
+    } /> <Route path='/view/:id' render={props => {
+      const note = this.state.notes.filter(note=>{
+        return note.id === parseInt(props.match.params.id)
+      })[0]
+      if(!note){
+        return <Redirect to='/'/>
+      }
+      return <Note note={note}/>}}/> < / Grid>
         < /Grid > <Link to='/add'>
       < Fab color="primary" className='addIcon'>
         <AddIcon/>
