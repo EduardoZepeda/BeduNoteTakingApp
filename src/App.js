@@ -67,18 +67,19 @@ class App extends Component {
               <NotesList notes={this.state.notes} deleteNote={this.deleteNote}/ > < /Grid>
             < Grid item xs={ 8 }>
               <Route exact path='/' component={ Home }/>
- < Route exact path = '/add' render = {
+      <Route exact path = '/add' render = {
       () => (<NotesForm saveNote={this.saveNote} updateValue={this.updateValue} title={this.state.title} description={this.state.description}/>)
-    } /> <Route path='/view/:id' render={props => {
+    } />
+      <Route path='/view/:id' render={props => {
       const note = this.state.notes.filter(note=>{
         return note.id === parseInt(props.match.params.id)
       })[0]
       if(!note){
         return <Redirect to='/'/>
       }
-      return <Note note={note}/>}}/> < / Grid>
-        < /Grid > <Link to='/add'>
-      < Fab color="primary" className='addIcon'>
+      return <Note note={note}/>}}/> </Grid>
+        </Grid > <Link to='/add'>
+      <Fab color="primary" className='addIcon'>
         <AddIcon/>
       </Fab>
     </Link> < /Fragment>
