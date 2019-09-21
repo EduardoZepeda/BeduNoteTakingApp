@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, {Fragment, Component} from 'react';
 //material-ui
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -10,7 +10,7 @@ import NotesList from './NotesList'
 import Home from './Home'
 import Note from './Note'
 //React Router
-import { Link, Route } from 'react-router-dom'
+import {Link, Route} from 'react-router-dom'
 
 class App extends Component {
   constructor(props) {
@@ -30,47 +30,51 @@ class App extends Component {
 
   saveNote = () => {
     if (this.state.title && this.state.description) {
-      this.setState({
-        title: '',
-        description: '',
-        notes: [...this.state.notes, {
-          title: this.state.title,
-          description: this.state.description,
-          id: Date.now()
-        }]
+      this.setState((state) => {
+        return {
+          title: '',
+          description: '',
+          notes: [
+            ...state.notes, {
+              title: state.title,
+              description: state.description,
+              id: Date.now()
+            }
+          ]
+        }
+
       })
     }
   }
 
+  deleteNote = id => {
+    var filteredNotes = this.state.notes.filter((note)=>note.id !== id)
+    this.setState((state)=>{
+      return {
+        title: '',
+        description: '',
+        notes: [
+          ...filteredNotes
+        ]
+      }
+    })
+  }
+
   render() {
-    console.log(this.state)
-    return (
-      < Fragment>
-        < Typography align="center" variant="h2" gutterBottom>
-          Hello World
-        < /Typography>
+    return (< Fragment > <Typography align = "center" variant = "h2" gutterBottom > Hello World < /Typography>
         < Grid container justify='center' spacing={ 2 }>
             < Grid item xs={ 4 }>
-              <NotesList notes={this.state.notes}/>
-            < /Grid>
+              <NotesList notes={this.state.notes} deleteNote={this.deleteNote}/ > < /Grid>
             < Grid item xs={ 8 }>
               <Route exact path='/' component={ Home }/>
-              <Route exact path='/add' render= { () => (
-                <NotesForm
-                  saveNote={ this.saveNote }
-                  updateValue={ this.updateValue }
-                  title={ this.state.title }
-                  description={ this.state.description } />)}
-              />
-              <Route path='/view/:id' render={props=> <Note {...props} notes={this.state.notes}/>}/>
-            < / Grid>
-        < /Grid>
-        <Link to='/add'>
-          < Fab color="primary" className='addIcon'>
-              <AddIcon />
-          </Fab>
-        </Link>
-      < /Fragment>
+ < Route exact path = '/add' render = {
+      () => (<NotesForm saveNote={this.saveNote} updateValue={this.updateValue} title={this.state.title} description={this.state.description}/>)
+    } /> <Route path='/view/:id' render={props => <Note {...props} notes={this.state.notes}/>}/> < / Grid>
+        < /Grid > <Link to='/add'>
+      < Fab color="primary" className='addIcon'>
+        <AddIcon/>
+      </Fab>
+    </Link> < /Fragment>
     )
   }
 }

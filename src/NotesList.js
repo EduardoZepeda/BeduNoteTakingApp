@@ -17,8 +17,8 @@ const NotesList = (props) => {
       <ListItem button key={index} to={`/view/${note.id}`} component={ Link }>
         <ListItemText primary = {note.title} secondary={moment(note.id).format('MMM Do YY')}/>
         <ListItemSecondaryAction>
-          <IconButton>
-            <DeleteIcon/>
+          <IconButton onClick={() => props.deleteNote(note.id)}>
+            <DeleteIcon />
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
