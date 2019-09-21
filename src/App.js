@@ -11,6 +11,8 @@ import Home from './Home'
 import Note from './Note'
 //React Router
 import {Link, Route, Redirect} from 'react-router-dom'
+//3rd
+import axios from 'axios'
 
 class App extends Component {
   constructor(props) {
@@ -20,6 +22,14 @@ class App extends Component {
       description: '',
       notes: []
     }
+  }
+
+  componentDidMount(){
+    axios.get('./notes.json').then(response=> {
+      if(response.data && response.status ===200){
+        this.setState({notes: response.data})
+      }
+    }).catch(err => console.log(err))
   }
 
   updateValue = event => {
