@@ -1,4 +1,6 @@
-# Description
+# Bedu Note Taking App
+
+## Description
 
 Simple an minimalist note taking app. You can add, view and delete notes. This project uses [Material UI](https://material-ui.com/), [React](https://reactjs.org/) and [React Router](https://reactrouter.com/)
 
